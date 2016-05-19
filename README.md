@@ -31,7 +31,7 @@ Demo built for user service compose of following packages:
 
 In the main package you can find `UserUseCases` class which contains business logic.
 
-UserDemo class runs sample registration using different interpreters. 
+`UserDemo` class runs sample registration using different interpreters. 
 
 # Interpreters
 
