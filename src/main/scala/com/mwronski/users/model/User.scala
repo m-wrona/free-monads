@@ -10,4 +10,4 @@ object User {
 
 }
 
-case class User(login: UserLogin, name: UserName)
+final case class User(login: UserLogin, name: UserName)
