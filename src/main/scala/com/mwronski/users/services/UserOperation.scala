@@ -4,21 +4,25 @@ import cats.free.Free
 import com.mwronski.users.model.User
 import com.mwronski.users.model.User._
 
+/**
+  * Generic  user operation
+ *
+  * @tparam A type of result
+  */
+sealed trait UserOperation[A]
 
-sealed trait UserService[A]
+object UserOperation {
 
-object UserService {
+  final case class SaveUserOperation(user: UserLogin, name: UserName) extends UserOperation[Boolean]
 
-  final case class SaveUserService(user: UserLogin, name: UserName) extends UserService[Boolean]
+  final case class GetUserOperation(user: UserLogin) extends UserOperation[User]
 
-  final case class GetUserService(user: UserLogin) extends UserService[User]
+  type UserOperationResult[A] = Free[UserOperation, A]
 
-  type UserServiceCall[A] = Free[UserService, A]
-
-  def save(user: User): UserServiceCall[Option[Boolean]] = {
+  def save(user: User): UserOperationResult[Option[Boolean]] = {
     println(s"UserService->save: user: $user")
     if (!user.login.isEmpty) {
-      Free.liftF(SaveUserService(user.login, user.name))
+      Free.liftF(SaveUserOperation(user.login, user.name))
         .map(result => {
           println(s"UserService->save: user: $user, result: $result")
           Some(result)
@@ -29,10 +33,10 @@ object UserService {
     }
   }
 
-  def get(login: UserLogin): UserServiceCall[Option[User]] = {
+  def get(login: UserLogin): UserOperationResult[Option[User]] = {
     println(s"UserService->get: login: $login")
     if (!login.isEmpty) {
-      Free.liftF(GetUserService(login))
+      Free.liftF(GetUserOperation(login))
         .map(user => {
           println(s"UserService->get: login: $login, found: $user")
           Some(user)
