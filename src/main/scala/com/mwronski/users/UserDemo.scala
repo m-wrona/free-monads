@@ -1,7 +1,7 @@
 package com.mwronski.users
 
 import cats.Comonad
-import com.mwronski.users.context.UserServiceInterpreter
+import com.mwronski.users.context.UserServiceSimpleCompiler
 import com.mwronski.users.services.UserService
 
 object UserDemo {
@@ -15,13 +15,13 @@ object UserDemo {
     println("Registering user")
     val registered = UserUseCases
       .register("m-wrona", "Mike Wrona")
-      .foldMap(UserServiceInterpreter)
+      .foldMap(UserServiceSimpleCompiler)
     println(s"====> User registered: $registered")
     println
     println("Trying to register the same user for the 2nd time")
     val registered2 = UserUseCases
       .register("m-wrona", "Mike Wrona")
-      .foldMap(UserServiceInterpreter)
+      .foldMap(UserServiceSimpleCompiler)
     println(s"====> The same user registered twice: $registered2")
   }
 

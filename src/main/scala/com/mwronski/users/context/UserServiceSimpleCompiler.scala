@@ -8,7 +8,7 @@ import com.mwronski.users.services.UserService._
 
 import scala.collection.mutable
 
-object UserServiceInterpreter extends (UserService ~> Id) {
+object UserServiceSimpleCompiler extends (UserService ~> Id) {
 
   private val users = mutable.HashMap[UserLogin, User]()
 
