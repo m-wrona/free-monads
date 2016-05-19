@@ -37,7 +37,7 @@ UserDemo class runs sample registration using different interpreters.
 
 For demo purposes two interpreters have been implemented.
 
-## UserServiceBasicInterpreter
+##### UserServiceBasicInterpreter
 
 Basic service interpreter making direct/sync calls to underlying services.
 
@@ -81,7 +81,7 @@ UserUseCases->UserRegistration - login: m-wrona, name: Mike Wrona, found user wi
 ```
 
 
-## UserServiceFutureInterpreter
+##### UserServiceFutureInterpreter
 
 Future service interpreter making async calls to underlying services.
 
